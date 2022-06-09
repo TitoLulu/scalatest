@@ -1,6 +1,9 @@
+import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.funsuite.AnyFunSpec
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.propspec.AnyPropSpec
 import org.scalatest.refspec.RefSpec
+import org.scalatest.wordspec.AnyWordSpec
 
 object ScalaTestingStyles
 
@@ -57,7 +60,7 @@ class CalculatorWordSpec extends AnyWordSpec {
 class CalculatorFreeSpec extends AnyFreeSpec {
   val calculator = new Calculator
 
-  "A calculator" _ { // anything you want
+  "A calculator" - { // anything you want
     "give back 0 if multiplying by 0" in {
       assert(calculator.multiply(64, 0) == 0)
       assert(calculator.multiply(-64, 0) == 0)
@@ -74,7 +77,7 @@ class CalculatorFreeSpec extends AnyFreeSpec {
 class CalculatorPropSpec extends AnyPropSpec {
   val calculator = new Calculator
 
-  val multiplyByZeroExamples = List((64, 0),(-64, 0),(0, 0))
+  val multiplyByZeroExamples: Seq[(Int, Int)] = List((64, 0),(-64, 0),(0, 0))
 
   property("Calculator multiply by 0"){
     assert(multiplyByZeroExamples.forall{
@@ -91,13 +94,13 @@ class CalculatorRefSpec extends RefSpec {
   object `A calculator` {
     val calculator = new Calculator
 
-    def `multiply by 0 should be 0`: Unit = {
+    def `multiply by 0 should be 0`(): Unit = {
       assert(calculator.multiply(64, 0) == 0)
       assert(calculator.multiply(-64, 0) == 0)
       assert(calculator.multiply(0, 0) == 0)
     }
 
-    def `should Throw a math error when dividing by 0`: Unit = {
+    def `should Throw a math error when dividing by 0`(): Unit = {
       assertThrows[ArithmeticException](calculator.divide(64, 0))
     }
   }
@@ -108,8 +111,8 @@ class CalculatorRefSpec extends RefSpec {
 
 
 class Calculator {
-  def add(a: Int, b: Int) = a + b
-  def subtract(a: Int, b: Int) = a - b
-  def multiply(a: Int, b: Int) = a * b
-  def divide(a: Int, b: Int) = a / b
+  def add(a: Int, b: Int): Int = a + b
+  def subtract(a: Int, b: Int): Int = a - b
+  def multiply(a: Int, b: Int): Int = a * b
+  def divide(a: Int, b: Int): Int = a / b
 }
