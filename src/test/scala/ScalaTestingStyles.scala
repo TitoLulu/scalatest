@@ -18,7 +18,36 @@ class CalculatorSuite extends AnyFunSuite {
   test("division by 0 should throw some math error") {
     assertThrows[ArithmeticException](calculator.divide(64,0))
   }
-
+  test( testName = "addition of two +ve numbers should always return the sum of the two numbers"){
+    assert(calculator.add(64,23) == 64 + 23)
+  }
+  test( testName = "addition of two -ve numbers should always return a value less then the two numbers"){
+    assert(calculator.add(-64,-23) == -64 + -23)
+  }
+  test( testName = "addition of one +ve number and one -ve number should always return a value less than the +ve number"){
+    assert(calculator.add(64,-23) < 64)
+  }
+  test( testName = "addition of one +ve number and 0 should always return the +ve number"){
+    assert(calculator.add(64,0) == 64)
+  }
+  test( testName = "addition of one -ve number and 0 should always return the -ve number"){
+    assert(calculator.add(-64,0) == -64)
+  }
+  test( testName = "subtraction of two +ve numbers should always return the difference of the two numbers"){
+    assert(calculator.subtract(64,23) == 64 - 23)
+  }
+  test( testName = "subtraction of two -ve numbers should always return the difference between the inverse of the 2nd -ve number and the 1st -ve number"){
+    assert(calculator.subtract(-64,-23) == -64 + 23)
+  }
+  test( testName = "subtraction of one +ve number and one -ve number should always return  the sum of the +ve number and the inverse of the -ve number"){
+    assert(calculator.subtract(64,-23) == 64 + 23)
+  }
+  test( testName = "subtraction of one +ve number and 0 should always return the +ve number"){
+    assert(calculator.subtract(64,0) == 64)
+  }
+  test( testName = "subtraction of one -ve number and 0 should always return the -ve number"){
+    assert(calculator.subtract(-64,0) == -64)
+  }
 
 }
 
@@ -36,6 +65,42 @@ class CalculatorSpec extends AnyFunSpec {
   describe("division"){
     it("should throw a math error if dividing by 0"){
       assertThrows[ArithmeticException](calculator.divide(64,0))
+    }
+  }
+
+  describe( description = "addition"){
+    it("should always return the sum of the two -ve numbers if adding two -ve numbers"){
+      assert(calculator.add(64,23) == 64 + 23)
+    }
+    it("should always return a value less than any of the two numbers and equal to the sum of the two -ve numbers if adding two -ve numbers"){
+      assert(calculator.add(-64,-23) < -64  & calculator.add(-64,-23) == -64 + -23)
+    }
+    it("should always return a value less than the +ve number and equal to the sum of the +ve and -ve number if adding +ve and -ve numbers"){
+      assert(calculator.add(64,-23) < 64 & calculator.add(64,-23) == 64 + -23)
+    }
+    it("should always return the +ve number if adding 0"){
+      assert(calculator.add(64,0) == 64)
+    }
+    it("should always return the -ve number if adding 0"){
+      assert(calculator.add(-64,0) == -64)
+    }
+  }
+
+  describe( description = "subtraction"){
+    it("should always return the difference of the two -ve numbers if subtracting two -ve numbers"){
+      assert(calculator.subtract(64,23) == 64 - 23)
+    }
+    it("should always return a value greater than any of the two numbers and equal to the difference of the 1st -ve number and the inverse of the 2nd -ve number if subtracting two -ve numbers"){
+      assert(calculator.subtract(-64,-23) > -64  & calculator.subtract(-64,-23) == -64 - -23)
+    }
+    it("should always return a value more than the +ve number and equal to the sum of the +ve and the inverse of the -ve number if subtracting +ve and -ve numbers"){
+      assert(calculator.subtract(64,-23) > 64 & calculator.subtract(64,-23) == 64 - -23)
+    }
+    it("should always return the +ve number if subtracting 0"){
+      assert(calculator.subtract(64,0) == 64)
+    }
+    it("should always return the -ve number if subtracting 0"){
+      assert(calculator.subtract(-64,0) == -64)
     }
   }
 }
